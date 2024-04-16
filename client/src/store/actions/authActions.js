@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from 'axios';
 
 import { getMessages } from './messageActions';
 import {
@@ -22,7 +22,7 @@ export const loadMe = () => async (dispatch, getState) => {
 
   try {
     const options = attachTokenToHeaders(getState);
-    const response = await axios.get('/api/users/me', options);
+    const response = await axiosInstance.get('/api/users/me', options);
 
     dispatch({
       type: ME_SUCCESS,
@@ -39,7 +39,7 @@ export const loadMe = () => async (dispatch, getState) => {
 export const loginUserWithEmail = (formData, history) => async (dispatch, getState) => {
   dispatch({ type: LOGIN_WITH_EMAIL_LOADING });
   try {
-    const response = await axios.post('/auth/login', formData);
+    const response = await axiosInstance.post('/auth/login', formData);
 
     dispatch({
       type: LOGIN_WITH_EMAIL_SUCCESS,
@@ -65,7 +65,7 @@ export const logInUserWithOauth = (token) => async (dispatch, getState) => {
       'x-auth-token': token,
     };
 
-    const response = await axios.get('/api/users/me', { headers });
+    const response = await axiosInstance.get('/api/users/me', { headers });
 
     dispatch({
       type: LOGIN_WITH_OAUTH_SUCCESS,
@@ -84,7 +84,7 @@ export const logOutUser = (history) => async (dispatch) => {
   try {
     deleteAllCookies();
     //just to log user logut on the server
-    await axios.get('/auth/logout');
+    await axiosInstance.get('/auth/logout');
 
     dispatch({
       type: LOGOUT_SUCCESS,
@@ -98,7 +98,7 @@ export const reseedDatabase = () => async (dispatch, getState) => {
     type: RESEED_DATABASE_LOADING,
   });
   try {
-    await axios.get('/api/users/reseed');
+    await axiosInstance.get('/api/users/reseed');
 
     dispatch({
       type: RESEED_DATABASE_SUCCESS,

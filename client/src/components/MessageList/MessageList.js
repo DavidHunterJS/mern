@@ -10,8 +10,7 @@ import './styles.css';
 const MessageList = ({ getMessages, message: { messages, isLoading, error } }) => {
   useEffect(() => {
     getMessages();
-  }, []);
-
+  }, []); // Include getMessages in the dependency array
   return (
     <div className="message-list">
       <h2>Messages:</h2>

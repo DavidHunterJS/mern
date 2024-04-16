@@ -8,6 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <span className="username">@nemanjam 2020</span>
         <iframe
+          title="title"
           src="https://ghbtns.com/github-btn.html?user=nemanjam&repo=mern-boilerplate&type=star&count=true&size=large"
           frameBorder="0"
           scrolling="0"

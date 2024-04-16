@@ -21,7 +21,6 @@ const App = ({ logInUserWithOauth, auth, loadMe }) => {
     loadMe();
   }, [loadMe]);
 
-  //redosled hookova
   useEffect(() => {
     if (window.location.hash === '#_=_') window.location.hash = '';
 
@@ -30,7 +29,7 @@ const App = ({ logInUserWithOauth, auth, loadMe }) => {
       Cookies.remove('x-auth-cookie');
       logInUserWithOauth(cookieJwt);
     }
-  }, []);
+  }, [logInUserWithOauth]); // Include logInUserWithOauth in the dependency array
 
   useEffect(() => {
     if (!auth.appLoaded && !auth.isLoading && auth.token && !auth.isAuthenticated) {

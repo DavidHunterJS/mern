@@ -11,7 +11,9 @@ const Navbar = ({ auth, logOutUser, history }) => {
     event.preventDefault();
     logOutUser(history);
   };
-
+  const navigateToRoot = () => {
+    history.push('/');
+  };
   return (
     <nav className="navbar">
       <h2 className="logo">MERN Boilerplate</h2>
@@ -33,9 +35,11 @@ const Navbar = ({ auth, logOutUser, history }) => {
               </li>
             )}
             <li className="flex-1" />
-            <img className="avatar" src={auth.me.avatar} />
+            <img className="avatar" src={auth.me.avatar} alt="User Avatar" />
             <li className="nav-item" onClick={onLogOut}>
-              <a href="#">Log out</a>
+              <button onClick={navigateToRoot} className="link-style">
+                Log out
+              </button>
             </li>
           </>
         ) : (

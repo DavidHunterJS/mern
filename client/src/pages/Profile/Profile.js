@@ -52,7 +52,7 @@ const Profile = ({
 
   useEffect(() => {
     getProfile(matchUsername, history);
-  }, [matchUsername]);
+  }, [matchUsername, getProfile, history]);
 
   // if changed his own username reload me, done in userActions
 
@@ -110,7 +110,7 @@ const Profile = ({
           <Loader />
         ) : (
           <div className="profile-info">
-            <img src={image ? image : profile.avatar} className="avatar" />
+            <img src={image ? image : profile.avatar} className="avatar" alt="avatar" />
             <div className="info-container">
               <div>
                 <span className="label">Provider: </span>

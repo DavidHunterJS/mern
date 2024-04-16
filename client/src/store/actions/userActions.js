@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 
 import { attachTokenToHeaders } from './authActions';
 import {
@@ -21,7 +21,7 @@ export const editUser = (id, formData, history) => async (dispatch, getState) =>
   });
   try {
     const options = attachTokenToHeaders(getState);
-    const response = await axios.put(`/api/users/${id}`, formData, options);
+    const response = await axiosInstance.put(`/api/users/${id}`, formData, options);
 
     dispatch({
       type: EDIT_USER_SUCCESS,
@@ -44,7 +44,7 @@ export const getProfile = (username, history) => async (dispatch, getState) => {
   });
   try {
     const options = attachTokenToHeaders(getState);
-    const response = await axios.get(`/api/users/${username}`, options);
+    const response = await axiosInstance.get(`/api/users/${username}`, options);
 
     dispatch({
       type: GET_PROFILE_SUCCESS,
@@ -68,7 +68,7 @@ export const deleteUser = (id, history) => async (dispatch, getState) => {
   });
   try {
     const options = attachTokenToHeaders(getState);
-    const response = await axios.delete(`/api/users/${id}`, options);
+    const response = await axiosInstance.delete(`/api/users/${id}`, options);
 
     //logout only if he deleted himself
     if (getState().auth.me.id === response.data.user.id) {

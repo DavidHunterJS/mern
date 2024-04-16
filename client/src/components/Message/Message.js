@@ -42,7 +42,7 @@ const Message = ({ message, auth, deleteMessage, editMessage, clearMessageError 
   // dont reset form if there is an error
   useEffect(() => {
     if (!message.error && !message.isLoading) formik.resetForm();
-  }, [message.error, message.isLoading]);
+  }, [message.error, message.isLoading, formik.resetForm]);
 
   // keep edit open if there is an error
   useEffect(() => {
@@ -53,7 +53,11 @@ const Message = ({ message, auth, deleteMessage, editMessage, clearMessageError 
     <div className={message.isLoading ? 'message loader' : 'message'}>
       <div className="message-header">
         <Link to={`/${message.user.username}`}>
-          <img src={message.user.avatar} className="avatar" />
+          <img
+            src={message.user.avatar}
+            alt={`${message.user.username}'s avatar`}
+            className="avatar"
+          />
         </Link>
         <div>
           <Link to={`/${message.user.username}`} className="name">

@@ -14,7 +14,7 @@ import './styles.css';
 const Users = ({ getUsers, users: { users, isLoading } }) => {
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [getUsers]); // Include getUsers in the dependency array
 
   return (
     <Layout>
@@ -33,7 +33,7 @@ const Users = ({ getUsers, users: { users, isLoading } }) => {
                 return (
                   <div key={index} className="profile">
                     <Link to={`/${user.username}`}>
-                      <img src={user.avatar} className="avatar" />
+                      <img src={user.avatar} alt="User avatar" className="avatar" />
                     </Link>
                     <div className="info-container">
                       <div>

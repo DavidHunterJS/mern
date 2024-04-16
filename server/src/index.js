@@ -5,13 +5,19 @@ import https from 'https';
 import { readFileSync } from 'fs';
 import { resolve, join } from 'path';
 import passport from 'passport';
-import all_routes from 'express-list-endpoints';
+// import all_routes from 'express-list-endpoints';
+import cors from 'cors';
 
 import routes from './routes';
 import { seedDb } from './utils/seed';
 
 const app = express();
 
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 // Bodyparser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -53,7 +59,7 @@ if (isProduction) {
 
   // app.get('*', (req, res) => {
   //   // index is in /server/src so 2 folders up
-  //   res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html')); 
+  //   res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html'));
   // });
 
   const port = process.env.PORT || 80;
