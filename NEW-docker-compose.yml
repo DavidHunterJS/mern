@@ -1,0 +1,58 @@
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    container_name: client
+    restart: unless-stopped
+    networks:
+      - frontend
+    depends_on:
+      - server
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.client.rule=Host(`example.com`)'
+      - 'traefik.http.routers.client.entrypoints=websecure'
+      - 'traefik.http.routers.client.tls=true'
+      - 'traefik.http.routers.client.tls.certresolver=myresolver'
+      - 'traefik.http.services.client.loadbalancer.server.port=80'
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: server
+    container_name: server
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - server-images:/home/node/app/public/images
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.server-api.rule=Host(`example.com`) && (PathPrefix(`/api`) || PathPrefix(`/auth`))'
+      - 'traefik.http.routers.server-api.entrypoints=websecure'
+      - 'traefik.http.routers.server-api.tls=true'
+      - 'traefik.http.routers.server-api.tls.certresolver=myresolver'
+      - 'traefik.http.services.server-api.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.server-images.rule=Host(`example.com`) && PathPrefix(`/public/images`)'
+      - 'traefik.http.routers.server-images.entrypoints=websecure'
+      - 'traefik.http.routers.server-images.tls=true'
+      - 'traefik.http.routers.server-images.tls.certresolver=myresolver'
+      - 'traefik.http.services.server-images.loadbalancer.server.port=8080'
+
+volumes:
+  server-images:
+
+networks:
+  frontend:
+    name: frontend
+    external: true
+  backend:
+    name: backend
+    external: false
