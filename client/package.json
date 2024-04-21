@@ -1,7 +1,7 @@
 {
   "name": "mern-boilerplate",
   "version": "0.1.0",
-  "proxy": "https://localhost:8080",
+  "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -23,7 +23,7 @@
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
